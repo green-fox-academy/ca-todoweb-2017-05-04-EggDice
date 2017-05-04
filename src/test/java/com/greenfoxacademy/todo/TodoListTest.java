@@ -17,7 +17,17 @@ public class TodoListTest {
   @Test
   public void addElement() {
     TodoList todos = new TodoList();
-    todos.add("alma");
+    todos.add(new TodoItem("alma"));
     assertEquals(todos.getAll().size(), 1);
+  }
+
+  @Test
+  public void deleteItem() {
+    TodoList todos = new TodoList();
+    TodoItem first = new TodoItem("alma");
+    todos.add(first);
+    todos.add(new TodoItem("korte"));
+    todos.delete(first.id);
+    assertEquals(todos.getAll().get(0).name, "korte");
   }
 }

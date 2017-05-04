@@ -1,5 +1,6 @@
 package com.greenfoxacademy.controllers;
 
+import com.greenfoxacademy.todo.TodoItem;
 import com.greenfoxacademy.todo.TodoList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by eggdice on 5/4/17.
@@ -26,8 +28,14 @@ public class MainController {
   }
 
   @RequestMapping("/add")
-  public String add(@RequestParam("new_todo") String param) {
-    todos.add(param);
+  public String add(@RequestParam("new_todo") String param) throws InterruptedException {
+    todos.add(new TodoItem(param));
+    return "redirect:/";
+  }
+
+  @RequestMapping("/delete")
+  public String delete(@RequestParam("index") String param) {
+    todos.delete(Integer.parseInt(param));
     return "redirect:/";
   }
 }

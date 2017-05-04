@@ -5,9 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-    <h1 th:text="${greet}">Helloka</h1>
+    <h1>TodoList</h1>
     <ul>
-        <li th:each="todo : ${todos}" th:text="${todo}"></li>
+        <li th:each="todo : ${todos}">
+            <form method="post" th:action="@{/delete?index=} + ${todo.id}">
+                <span th:text="${todo.name}"></span>
+                <input type="submit" value="delete"/>
+            </form>
+        </li>
     </ul>
     <form method="post" action="/add">
         <input type="text" name="new_todo"/>

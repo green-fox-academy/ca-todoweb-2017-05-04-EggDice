@@ -10,13 +10,23 @@ import java.util.List;
  */
 @Component
 public class TodoList {
-  List<String> list = new ArrayList<>();
+  List<TodoItem> list = new ArrayList<>();
 
-  public List<String> getAll() {
+  public List<TodoItem> getAll() {
     return list;
   }
 
-  public void add(String item) {
+  public void add(TodoItem item) {
     list.add(item);
+  }
+
+  public void delete(int id) {
+    TodoItem selected = null;
+    for (TodoItem item : list) {
+      if (item.id == id) {
+        selected = item;
+      }
+    }
+    list.remove(selected);
   }
 }
