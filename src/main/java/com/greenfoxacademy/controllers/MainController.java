@@ -1,5 +1,7 @@
 package com.greenfoxacademy.controllers;
 
+import com.greenfoxacademy.todo.TodoList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,18 +15,19 @@ import java.util.List;
  */
 @Controller
 public class MainController {
+  @Autowired
+  TodoList todos;
+
   @RequestMapping("/")
   public String index(Model model) {
-    List<String> colors = Arrays.asList("red", "blue", "yellow");
     model.addAttribute("greet", "anyad");
-    model.addAttribute("colors", colors);
+    model.addAttribute("todos", todos.getAll());
     return "index";
   }
 
   @RequestMapping("/add")
-  public String add(Model model, @RequestParam("new_todo") String param) {
-    System.out.println(param);
-    System.out.println("AJJAJJJ #################################");
+  public String add(@RequestParam("new_todo") String param) {
+    todos.add(param);
     return "redirect:/";
   }
 }
